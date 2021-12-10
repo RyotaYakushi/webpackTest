@@ -1,0 +1,15 @@
+doctype html 
+
+block  locals 
+  -const title = 'My Website' ;
+
+html(lang='ja') 
+<!--ヘッド要素-->
+  head
+    meta(chraset='UTF-8')
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title #{title}
+<!--ボディ要素-->
+  body 
+    include  _menu.pug
+    block  content 

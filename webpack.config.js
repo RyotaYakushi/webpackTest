@@ -31,12 +31,26 @@ module.exports = {
         },
         use: [
           ////{
-           // loader: "file-loader",
-           // options: {
-           //   esModule: false,
-           //   name: "images/[name].[ext]",
-           // },
+          // loader: "file-loader",
+          // options: {
+          //   esModule: false,
+          //   name: "images/[name].[ext]",
+          // },
           ////},
+        ],
+      },
+      {
+        test: /\.pug/,
+        use: [
+          {
+            loader: "html-loader",
+          },
+          {
+            loader: "pug-html-loader",
+            options: {
+              pretty: false,
+            },
+          },
         ],
       },
     ],
@@ -46,7 +60,12 @@ module.exports = {
       filename: "./css/main.css",
     }),
     new HtmlWebpackPlugin({
-      template: "./src/templates/index.html",
+      template: "./src/templates/index.pug",
+      filename: "index.html",
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/templates/acces.pug",
+      filename: "acces.html",
     }),
     new CleanWebpackPlugin(),
   ],
