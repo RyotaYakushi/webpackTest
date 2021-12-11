@@ -48,7 +48,7 @@ module.exports = {
           {
             loader: "pug-html-loader",
             options: {
-              pretty: false,
+              pretty: true,
             },
           },
         ],
@@ -66,6 +66,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/templates/acces.pug",
       filename: "acces.html",
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/templates/members/gorira.pug",
+      filename: "members/gorira.html",
     }),
     new CleanWebpackPlugin(),
   ],

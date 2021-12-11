@@ -1,1 +1,1 @@
-node_modules/
+node_modules/pkgutil --pkg-info=com.apple.pkg.CLTools_Executables
