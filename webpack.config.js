@@ -3,8 +3,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { runInNewContext } = require("vm");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { SourceMap } = require("module");
 
 module.exports = {
+  devtool: "source-map",
   entry: "./src/js/bundle.js",
   output: {
     path: path.resolve(__dirname, "./dist"),
@@ -13,13 +15,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css/,
+        test: /\.(css|sass|scss)/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
           },
           {
             loader: "css-loader",
+          },
+          {
+            loader: "sass-loader",
           },
         ],
       },

@@ -1,0 +1,15 @@
+@use "./footer.scss";
+body {
+  color: lightblue;
+}
+$primary-color: orange;
+.content {
+  .title {
+    font-size: 24px;
+    color: $primary-color;
+  }
+  .title-lg {
+    @extend .title;
+    font-size: 1rem;
+  }
+}
