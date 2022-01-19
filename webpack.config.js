@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const { SourceMap } = require("module");
 const globule = require("globule");
+const loader = require("sass-loader");
 
 const app = {
   mode: "development",
@@ -42,6 +43,7 @@ const app = {
             loader: "css-loader",
             options: { sourceMap: true },
           },
+          { loader: "postcss-loader" },
           {
             loader: "sass-loader",
             options: {
