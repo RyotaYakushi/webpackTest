@@ -4,8 +4,9 @@ const { runInNewContext } = require("vm");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const { SourceMap } = require("module");
+const globule = require("globule");
 
-module.exports = {
+const app = {
   mode: "development",
 
   devtool: "source-map",
@@ -32,7 +33,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(css|sass|scss)/,
+        test: /\.(sa|sc|c)ss$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -43,9 +44,13 @@ module.exports = {
           },
           {
             loader: "sass-loader",
+            options: {
+              implementation: require("sass"),
+            },
           },
         ],
       },
+
       {
         test: /\.(png|jpg|jpeg)/,
         type: "asset/resource",
@@ -90,12 +95,27 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "./css/[name]-[contenthash].css",
+      filename: "./css/style.css",
     }),
-    new HtmlWebpackPlugin({
-      template: "./src/templates/index.html",
-      filename: "index.html",
-    }),
+    //new HtmlWebpackPlugin({
+    //   template: "./src/templates/index.html",
+    //   filename: "index.html",
+    // }),//
     new CleanWebpackPlugin(),
   ],
 };
+// htmlファイルを見つけて配列化
+const templates = globule.find("./src/templates/**/*.html");
+//htmlファイルごとにループさせる
+templates.forEach((template) => {
+  const fileName = template.replace("./src/templates/", "");
+  app.plugins.push(
+    new HtmlWebpackPlugin({
+      filename: `${fileName}`,
+      template: template,
+      inject: false, //false, head, body, trueから選べる
+      minify: false, //本番環境でも圧縮しない
+    })
+  );
+});
+module.exports = app;
