@@ -1,11 +1,8 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { runInNewContext } = require("vm");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const { SourceMap } = require("module");
 const globule = require("globule");
-const loader = require("sass-loader");
 
 const app = {
   mode: "development",
@@ -14,13 +11,20 @@ const app = {
   entry: "./src/js/bundle.js",
   output: {
     path: path.resolve(__dirname, "./dist"),
-    filename: "./js/[name]-[contenthash].js",
+    filename: "./js/bundle.js",
     publicPath: "/",
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "dist"),
+    },
+    open: true,
+    watchFiles: ["src/**/*"],
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js/,
         exclude: /node_modules/,
         use: [
           {
